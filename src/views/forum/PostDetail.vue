@@ -21,6 +21,15 @@
           </div>
         </div>
 
+        <!-- 标签 -->
+        <div v-if="post.tags && post.tags.length > 0" class="post-tags">
+          <span
+            v-for="tag in post.tags"
+            :key="tag"
+            class="detail-tag"
+            :style="{ background: tagColor(tag) + '18', color: tagColor(tag), borderColor: tagColor(tag) + '50' }"
+          >{{ tag }}</span>
+        </div>
         <h1 class="post-title">{{ post.title }}</h1>
         <div class="post-content" v-html="post.content"></div>
 
@@ -156,7 +165,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/auth'
-import { postApi, commentApi } from '@/api'
+import { postApi, commentApi, POST_TAGS } from '@/api'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Edit, Delete, View, ChatDotRound, Star, StarFilled, ChatDotSquare } from '@element-plus/icons-vue'
 import RichEditor from '@/components/common/RichEditor.vue'
@@ -183,6 +192,10 @@ const loadingComments = ref(false)
 const newComment = ref('')
 const commentEditorRef = ref(null)
 const submitting = ref(false)
+
+function tagColor(val) {
+  return POST_TAGS.find(t => t.value === val)?.color || '#94a3b8'
+}
 
 const canEdit = computed(() => {
   if (!auth.isLoggedIn || !post.value) return false
@@ -316,6 +329,12 @@ onMounted(() => {
 }
 .author-name { font-weight: 600; font-size: 15px; }
 .post-time { font-size: 12px; color: var(--text-muted); }
+.post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.detail-tag {
+  font-size: 12px; font-weight: 600; padding: 3px 12px;
+  border-radius: 20px; border: 1px solid;
+}
+
 .post-title { font-size: 24px; font-weight: 700; line-height: 1.4; margin-bottom: 20px; }
 .post-footer {
   display: flex; justify-content: space-between; align-items: center;

@@ -4,6 +4,15 @@
       <div class="post-author">
         <el-avatar :size="32" :src="post.avatar">{{ post.username?.[0]?.toUpperCase() }}</el-avatar>
         <span class="username">{{ post.username }}</span>
+        <!-- 标签 -->
+        <div class="post-tags" v-if="post.tags && post.tags.length > 0" @click.stop>
+          <span
+            v-for="tag in post.tags"
+            :key="tag"
+            class="tag-badge"
+            :style="{ background: tagColor(tag) + '18', color: tagColor(tag), borderColor: tagColor(tag) + '40' }"
+          >{{ tag }}</span>
+        </div>
         <span class="time">{{ formatTime(post.updated_at) }}</span>
       </div>
       <h3 class="post-title">{{ post.title }}</h3>
@@ -22,6 +31,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
 import { View, ChatDotRound, Star } from '@element-plus/icons-vue'
+import { POST_TAGS } from '@/api'
 
 dayjs.extend(relativeTime)
 dayjs.locale('zh-cn')
@@ -39,6 +49,10 @@ function stripHtml(html) {
   const tmp = document.createElement('div')
   tmp.innerHTML = html
   return tmp.textContent?.substring(0, 150) || ''
+}
+
+function tagColor(val) {
+  return POST_TAGS.find(t => t.value === val)?.color || '#94a3b8'
 }
 </script>
 
@@ -62,42 +76,36 @@ function stripHtml(html) {
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 .username { font-size: 13px; font-weight: 600; color: var(--text-primary); }
 .time { font-size: 12px; color: var(--text-muted); margin-left: auto; }
-.post-title {
-  font-size: 16px;
+
+.post-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+.tag-badge {
+  font-size: 11px;
   font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.post-title {
+  font-size: 16px; font-weight: 600; color: var(--text-primary);
+  margin-bottom: 8px; line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .post-excerpt {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  font-size: 14px; color: var(--text-secondary); line-height: 1.6;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   margin-bottom: 12px;
 }
 .post-stats {
-  display: flex;
-  gap: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
+  display: flex; gap: 16px;
+  padding-top: 12px; border-top: 1px solid var(--border);
 }
-.stat {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
+.stat { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--text-muted); }
 .stat .el-icon { font-size: 14px; }
 </style>

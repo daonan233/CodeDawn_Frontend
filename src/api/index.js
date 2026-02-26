@@ -29,6 +29,14 @@ api.interceptors.response.use(
 
 export default api
 
+export const POST_TAGS = [
+  { label: '开发', value: '开发', color: '#6366f1' },
+  { label: '经分', value: '经分', color: '#10b981' },
+  { label: '受理', value: '受理', color: '#f59e0b' },
+  { label: '稽核', value: '稽核', color: '#ef4444' },
+  { label: '其他', value: '其他', color: '#94a3b8' },
+]
+
 // Auth
 export const authApi = {
   login: data => api.post('/auth/login', data),
