@@ -2,7 +2,7 @@
   <div class="create-post-wrap">
     <div class="create-post-card">
       <div class="card-header">
-        <h2>{{ isEdit ? '✏️ 编辑帖子' : '📝 发布新帖子' }}</h2>
+        <h2>{{ isEdit ? '编辑帖子' : '发布新帖子' }}</h2>
         <el-button @click="$router.back()">
           <el-icon><ArrowLeft /></el-icon> 返回
         </el-button>
@@ -29,7 +29,7 @@
         <div class="form-footer">
           <el-button size="large" @click="$router.back()">取消</el-button>
           <el-button type="primary" size="large" :loading="submitting" @click="submit">
-            {{ isEdit ? '💾 保存修改' : '🚀 发布帖子' }}
+            {{ isEdit ? '保存修改' : '发布帖子' }}
           </el-button>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="admin-wrap">
     <div class="admin-header">
-      <h2>⚙️ 管理后台</h2>
+      <h2>管理后台</h2>
       <el-tag type="warning">管理员</el-tag>
     </div>
 

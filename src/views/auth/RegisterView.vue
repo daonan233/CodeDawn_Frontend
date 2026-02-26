@@ -2,8 +2,7 @@
   <div class="auth-page">
     <div class="auth-card">
       <div class="auth-logo">
-        <div class="logo-icon-big">🌠</div>
-        <h1>翼道同行</h1>
+        <img src= "@/assets/fulllog.png" alt="fulllogo" style="width:80%;user-select: none;"/>
         <p>创建新账号</p>
       </div>
 

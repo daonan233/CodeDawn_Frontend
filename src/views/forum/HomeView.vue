@@ -66,12 +66,12 @@
           <h3>{{ auth.user.username }}</h3>
           <p class="text-muted">{{ auth.user.bio || '这个人很神秘，什么都没写' }}</p>
           <el-button type="primary" round @click="$router.push('/post/create')" style="width:100%;margin-top:12px">
-            ✍️ 发布新帖子
+            发布新帖子
           </el-button>
         </template>
         <template v-else>
-          <div class="welcome-icon">💬</div>
-          <h3>欢迎来到翼道同行</h3>
+          <img src= "@/assets/favicon.svg" alt="smalllogo" style="width:30%;user-select: none;"/>
+          <h3>欢迎来到CodeDawn</h3>
           <p class="text-muted">登录后参与讨论，发表您的见解</p>
           <div style="display:flex;gap:8px;margin-top:12px">
             <el-button @click="$router.push('/login')" style="flex:1">登录</el-button>
@@ -82,7 +82,7 @@
 
       <!-- 统计信息 -->
       <div class="sidebar-card stats-card">
-        <h4>📊 社区统计</h4>
+        <h4>论坛统计</h4>
         <div class="stats-grid">
           <div class="stat-item">
             <span class="stat-num">{{ total }}</span>
@@ -109,7 +109,7 @@ const router = useRouter()
 const posts = ref([])
 const total = ref(0)
 const page = ref(1)
-const limit = 15
+const limit = 10
 const sort = ref('latest')
 const loading = ref(false)
 const searchQuery = ref('')
